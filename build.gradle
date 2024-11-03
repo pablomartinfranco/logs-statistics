@@ -1,0 +1,69 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'app'
+version = '1.0-SNAPSHOT'
+
+java {
+    compileJava.options.incremental = true
+}
+
+application {
+    mainClassName = 'app.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'com.google.jimfs:jimfs:1.2'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events = ["started", "passed", "skipped", "failed"]
+        exceptionFormat = "full"
+        showStandardStreams = true
+        outputs.upToDateWhen { false }
+    }
+}
+
+// java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator
+tasks.register('generator', JavaExec) {
+    group = 'application'
+    description = 'Runs the LogGenerator application'
+    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    main = 'app.LogGenerator'
+    args '50', '1000'
+}
+
+// java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.Main --folder=./data/
+tasks.register('simple', JavaExec) {
+    group = 'application'
+    description = 'Runs the Main application'
+    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    main = 'app.Main'
+    args '--folder=./data/'
+}
+
+tasks.register('fibers', JavaExec) {
+    group = 'application'
+    description = 'Runs the Main application with fibers'
+    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    main = 'app.Main'
+    args '--folder=./data/', '--runner=fibers'
+}
+
+tasks.register('parallel', JavaExec) {
+    group = 'application'
+    description = 'Runs the Main application with parallel streams'
+    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    main = 'app.Main'
+    args '--folder=./data/', '--runner=parallel'
+}
