@@ -18,16 +18,8 @@ public class SessionData {
         return sessions;
     }
 
-    public void setSessions(int sessions) {
-        this.sessions = sessions;
-    }
-
     public int getPageViews() {
         return pageViews;
-    }
-
-    public void addPageView() {
-        pageViews++;
     }
 
     public void addSessionLength(long lengthInMinutes) {

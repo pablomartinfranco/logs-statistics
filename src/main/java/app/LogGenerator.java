@@ -72,7 +72,7 @@ public class LogGenerator implements FileGenerator {
                 }
                 var builder = new StringBuilder();
                 for (int i = 0; i < linesCount; i++) {
-                    dateTime = dateTime.plusMinutes(ThreadLocalRandom.current().nextInt(0, 10));
+                    dateTime = dateTime.plusMinutes(ThreadLocalRandom.current().nextInt(0, 60));
                     var uri = uriIpMap.keySet().stream()
                             .skip(ThreadLocalRandom.current().nextInt(uriIpMap.size()))
                             .findFirst().orElseThrow();

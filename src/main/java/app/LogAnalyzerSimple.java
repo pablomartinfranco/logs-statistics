@@ -24,6 +24,8 @@ public class LogAnalyzerSimple implements FileAnalyzer {
 
         var aggregatedData = LogService.calculateSessions(usersData);
 
+        System.out.println("-> [Single thread runner] <-");
+
         LogService.printReport(aggregatedData);
     }
 }
