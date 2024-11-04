@@ -101,6 +101,8 @@ The intention of this project was mostly to test different aproaches to concurre
 
 At the end there wasn't that big of a difference until an amount of files in the order of 1000.
 
-The single thread aproach showed to be easier to implement and debug, but the fibers and parallel aproaches showed to be more efficient in terms of time and resource consumption.
+The single threaded aproach showed to be easier to implement and debug, but the virtual threads one showed to process files 20% faster when files were more than 1000, at least with my CPU.
 
 What I think makes mostly the diference is the non blocking I/O API of the built in nio package, that allows to read files in a non blocking way.
+
+I'll try to add some real benchmark tests in the future, for that reason I've been trying to implement the JMH framework but still not working.
