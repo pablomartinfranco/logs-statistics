@@ -99,7 +99,7 @@ Recently, many Java developers have been transitioning to .NET Core C# for its m
 
 The intention of this project was mostly to test different aproaches to concurrency in Java 21, using the new virtual threads API (user light threads), old kernel threads and the traditional single thread executor.
 
-At the end there wasn't that big of a difference until an amount of files in the magnitud of 1000.
+At the end there wasn't that big of a difference until an amount of files in the order of 1000.
 
 The single thread aproach showed to be easier to implement and debug, but the fibers and parallel aproaches showed to be more efficient in terms of time and resource consumption.
 
