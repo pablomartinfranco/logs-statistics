@@ -34,13 +34,24 @@ test {
     }
 }
 
+jar.manifest.attributes('Main-Class': 'app.Main')
+
+run {
+    if (project.hasProperty('folder')) {
+        args = ["--folder=${project.folder}"]
+//        args = ["--folder=${project.property('folder')}"]
+    }
+}
+
 // java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator
 tasks.register('generator', JavaExec) {
     group = 'application'
     description = 'Runs the LogGenerator application'
     classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
     main = 'app.LogGenerator'
-    args '50', '1000'
+    def param1 = project.hasProperty('param1') ? project.param1 : '50'
+    def param2 = project.hasProperty('param2') ? project.param2 : '1000'
+    args = [param1, param2]
 }
 
 // java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.Main --folder=./data/

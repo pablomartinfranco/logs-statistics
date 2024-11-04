@@ -57,7 +57,7 @@ if [ -f "gradlew" ]; then
     echo "Gradle wrapper found."
     ./gradlew --version
     echo "Compiling with Gradle wrapper..."
-    ./gradlew clean build --warning-mode all || { echo "Gradle build failed"; exit 1; }
+    ./gradlew clean build --warning-mode none || { echo "Gradle build failed"; exit 1; }
 else
     echo "Gradle wrapper not found."
 fi
@@ -72,12 +72,12 @@ java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator
 echo "Project is ready to run."
 
 echo "Running the tests..."
-./gradlew test --warning-mode none
+./gradlew test --warning-mode none || { echo "Tests failed"; exit 1; } else { echo "Ready to run!"; }
+
+java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --help
 
 # Run the application
-echo "Running the application..."
-#./gradlew run --warning-mode all
-#./gradlew run --warning-mode none
+#echo "Running the application..."
 #jar tf build/libs/logs-statistics-1.0-SNAPSHOT.jar
-java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.Main
-
+#java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.Main
+#java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --folder=./data
