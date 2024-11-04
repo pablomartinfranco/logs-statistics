@@ -30,10 +30,10 @@ public class LogAnalyzerFibers implements FileAnalyzer {
                     EXECUTOR_SERVICE
                 ));
             }
-            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         } catch (IOException e) {
             System.err.println("Error reading log files: " + e.getMessage());
         }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         var aggregatedData = LogService.calculateSessions(usersData);
 

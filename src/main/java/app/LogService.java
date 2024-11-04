@@ -17,7 +17,7 @@ public class LogService {
     private static final int EXPIRATION_TIME = 10;
     private static final int TOP_USERS_LIMIT = 5;
 
-    public static int processLogFile(Path logFile, Map<String, List<LocalDateTime>> userSessions) {
+    public static void processLogFile(Path logFile, Map<String, List<LocalDateTime>> userSessions) {
         try (var reader = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -28,7 +28,7 @@ public class LogService {
         } catch (IOException e) {
             System.err.println("Error reading log file: " + logFile.getFileName());
         }
-        return userSessions.size();
+//        return userSessions.size();
     }
 
     public static Map<String, SessionData> calculateSessions(Map<String, List<LocalDateTime>> userSessions) {
