@@ -64,7 +64,7 @@ fi
 
 # Generate log files
 echo "Generating log files..."
-mkdir -p data
+[ ! -d "data" ] && mkdir -p "data"
 echo "Created data directory."
 echo "Generating log files..."
 java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator
