@@ -4,7 +4,9 @@ plugins {
 }
 
 group = 'app'
-version = '1.0-SNAPSHOT'
+version = ''
+
+jar.manifest.attributes('Main-Class': 'app.Main')
 
 java {
     compileJava.options.incremental = true
@@ -34,31 +36,28 @@ test {
     }
 }
 
-jar.manifest.attributes('Main-Class': 'app.Main')
-
 run {
     if (project.hasProperty('folder')) {
         args = ["--folder=${project.folder}"]
-//        args = ["--folder=${project.property('folder')}"]
     }
 }
 
-// java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator
+// java -cp build/libs/logs-statistics.jar app.LogGenerator
 tasks.register('generator', JavaExec) {
     group = 'application'
     description = 'Runs the LogGenerator application'
-    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    classpath = files("build/libs/logs-statistics.jar")
     main = 'app.LogGenerator'
     def param1 = project.hasProperty('param1') ? project.param1 : '50'
     def param2 = project.hasProperty('param2') ? project.param2 : '1000'
     args = [param1, param2]
 }
 
-// java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.Main --folder=./data/
+// java -cp build/libs/logs-statistics.jar app.Main --folder=./data/
 tasks.register('simple', JavaExec) {
     group = 'application'
     description = 'Runs the Main application'
-    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    classpath = files("build/libs/logs-statistics.jar")
     main = 'app.Main'
     args '--folder=./data/'
 }
@@ -66,7 +65,7 @@ tasks.register('simple', JavaExec) {
 tasks.register('fibers', JavaExec) {
     group = 'application'
     description = 'Runs the Main application with fibers'
-    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    classpath = files("build/libs/logs-statistics.jar")
     main = 'app.Main'
     args '--folder=./data/', '--runner=fibers'
 }
@@ -74,7 +73,7 @@ tasks.register('fibers', JavaExec) {
 tasks.register('parallel', JavaExec) {
     group = 'application'
     description = 'Runs the Main application with parallel streams'
-    classpath = files("build/libs/logs-statistics-1.0-SNAPSHOT.jar")
+    classpath = files("build/libs/logs-statistics.jar")
     main = 'app.Main'
     args '--folder=./data/', '--runner=parallel'
 }

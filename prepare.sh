@@ -67,17 +67,17 @@ echo "Generating log files..."
 [ ! -d "data" ] && mkdir -p "data"
 echo "Created data directory."
 echo "Generating log files..."
-java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator
+java -cp build/libs/logs-statistics.jar app.LogGenerator
 
 echo "Project is ready to run."
 
 echo "Running the tests..."
 ./gradlew test --warning-mode none || { echo "Tests failed"; exit 1; } else { echo "Ready to run!"; }
 
-java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --help
+java -jar build/libs/logs-statistics.jar --help
 
 # Run the application
 #echo "Running the application..."
-#jar tf build/libs/logs-statistics-1.0-SNAPSHOT.jar
-#java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.Main
-#java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --folder=./data
+#jar tf build/libs/logs-statistics.jar
+#java -cp build/libs/logs-statistics.jar app.Main
+#java -jar build/libs/logs-statistics.jar --folder=./data

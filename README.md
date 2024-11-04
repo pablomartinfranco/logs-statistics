@@ -24,31 +24,31 @@ After successful build, run the application with the following command:
 Process logs in ./data folder with single thread runner.
 
 ```bash
-$ java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --folder=./data
+$ java -jar build/libs/logs-statistics.jar --folder=./data
 ```
 
 Invokes the help menu.
 
 ```bash
-$ java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --help
+$ java -jar build/libs/logs-statistics.jar --help
 ```
 
 Process logs in ./data folder with fibers runner.
 
 ```bash
-$ java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --folder=./data --runner=fibers
+$ java -jar build/libs/logs-statistics.jar --folder=./data --runner=fibers
 ```
 
 Process logs in ./data folder with parallel runner.
 
 ```bash
-$ java -jar build/libs/logs-statistics-1.0-SNAPSHOT.jar --folder=./data --runner=parallel
+$ java -jar build/libs/logs-statistics.jar --folder=./data --runner=parallel
 ```
 
 Generates log files in ./data folder at project root.
 
 ```bash
-$ java -cp build/libs/logs-statistics-1.0-SNAPSHOT.jar app.LogGenerator 20 1000
+$ java -cp build/libs/logs-statistics.jar app.LogGenerator 20 1000
 ```
 
 ### Gradle wrapper
