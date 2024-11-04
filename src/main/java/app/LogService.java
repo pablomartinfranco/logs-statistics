@@ -8,10 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LogService {
     private static final int EXPIRATION_TIME = 10;
@@ -22,13 +19,12 @@ public class LogService {
             String line;
             while ((line = reader.readLine()) != null) {
                 var entry = LogEntry.parse(line);
-                userSessions.computeIfAbsent(entry.userId(), k -> new ArrayList<>())
+                userSessions.computeIfAbsent(entry.userId(), k -> Collections.synchronizedList(new ArrayList<>()))
                         .add(entry.timestamp().toLocalDateTime());
             }
         } catch (IOException e) {
             System.err.println("Error reading log file: " + logFile.getFileName());
         }
-//        return userSessions.size();
     }
 
     public static Map<String, SessionData> calculateSessions(Map<String, List<LocalDateTime>> userSessions) {
