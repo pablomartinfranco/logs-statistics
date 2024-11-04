@@ -74,9 +74,9 @@ class LogServiceTest {
 
         // Assert
         assertEquals(6, pageViews);
-        assertEquals(2, sessions);
-        assertEquals(18, longestSession);
-        assertEquals(10, shortestSession);
+        assertEquals(1, sessions);
+        assertEquals(8, longestSession);
+        assertEquals(8, shortestSession);
         assertEquals(1, aggregated.size());
     }
 

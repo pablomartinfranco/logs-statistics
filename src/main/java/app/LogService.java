@@ -39,8 +39,8 @@ public class LogService {
                 long deltaMinutes = ChronoUnit.MINUTES.between(timestamps.get(i - 1), timestamps.get(i));
                 if (deltaMinutes <= EXPIRATION_TIME) {
                     sessionLength += deltaMinutes;
-                } else {
-                    sessionData.addSessionLength(sessionLength + EXPIRATION_TIME);
+                } else if (sessionLength > 0) {
+                    sessionData.addSessionLength(sessionLength);
                     sessionLength = 0;
                 }
             }
