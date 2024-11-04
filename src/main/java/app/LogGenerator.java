@@ -60,10 +60,9 @@ public class LogGenerator implements FileGenerator {
         for (int fileIndex = 0; fileIndex < filesCount; fileIndex++) {
             final int currentFileIndex = fileIndex;
             futures[fileIndex] = CompletableFuture.runAsync(() -> {
-                var dateTime = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS);
+                var dateTime = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).minusDays(currentFileIndex);
                 var logFile = Path.of(String.format("./data/logfile_%s.txt",
-                        dateTime.minusDays(currentFileIndex)
-                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+                        dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
                 try {
                     Files.createFile(logFile);
                 } catch (IOException e) {
@@ -72,7 +71,7 @@ public class LogGenerator implements FileGenerator {
                 }
                 var builder = new StringBuilder();
                 for (int i = 0; i < linesCount; i++) {
-                    dateTime = dateTime.plusMinutes(ThreadLocalRandom.current().nextInt(0, 60));
+                    dateTime = dateTime.plusMinutes(ThreadLocalRandom.current().nextInt(1, 20));
                     var uri = uriIpMap.keySet().stream()
                             .skip(ThreadLocalRandom.current().nextInt(uriIpMap.size()))
                             .findFirst().orElseThrow();

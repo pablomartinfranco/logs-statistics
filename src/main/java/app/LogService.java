@@ -1,7 +1,5 @@
 package app;
 
-import app.api.SessionData;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -27,13 +25,13 @@ public class LogService {
         }
     }
 
-    public static Map<String, SessionData> calculateSessions(Map<String, List<LocalDateTime>> userSessions) {
-        Map<String, SessionData> aggregatedData = new HashMap<>();
+    public static Map<String, Session> calculateSessions(Map<String, List<LocalDateTime>> userSessions) {
+        Map<String, Session> aggregatedData = new HashMap<>();
 
         for (Map.Entry<String, List<LocalDateTime>> entry : userSessions.entrySet()) {
             List<LocalDateTime> timestamps = entry.getValue();
             timestamps.sort(LocalDateTime::compareTo);
-            SessionData sessionData = new SessionData();
+            Session sessionData = new Session();
             sessionData.setPageViews(timestamps.size());
 
             long sessionLength = 0;
@@ -52,22 +50,22 @@ public class LogService {
         return aggregatedData;
     }
 
-    public static void printReport(Map<String, SessionData> aggregatedData) {
+    public static void printReport(Map<String, Session> aggregatedData) {
         System.out.println("Total unique users: " + aggregatedData.size());
         System.out.println("Top users:");
         System.out.printf("%-15s %-10s %-10s %-10s %-10s%n", "id", "# pages", "# sess", "longest", "shortest");
 
         var topUsers = getTopUsersByPageViews(aggregatedData);
 
-        for (Map.Entry<String, SessionData> entry : topUsers) {
+        for (Map.Entry<String, Session> entry : topUsers) {
             String userId = entry.getKey();
-            SessionData data = entry.getValue();
+            Session data = entry.getValue();
             System.out.printf("%-15s %-10d %-10d %-10d %-10d%n", userId, data.getPageViews(), data.getSessions(),
                     data.getLongestSession(), data.getShortestSession());
         }
     }
 
-    private static List<Map.Entry<String, SessionData>> getTopUsersByPageViews(Map<String, SessionData> aggregatedData) {
+    private static List<Map.Entry<String, Session>> getTopUsersByPageViews(Map<String, Session> aggregatedData) {
         return aggregatedData.entrySet().stream()
                 .sorted((a, b) -> Integer.compare(b.getValue().getPageViews(), a.getValue().getPageViews()))
                 .limit(TOP_USERS_LIMIT).toList();
