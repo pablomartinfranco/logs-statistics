@@ -21,8 +21,8 @@ public class AppContextFactory implements ContextFactory {
     public Optional<Context> tryParse(String[] args) {
         var input = parseArguments(args);
         if (input.containsKey(Flags.HELP)) {
-            System.out.println("Usage: java -jar log-analyzer.jar --runner=<runner> --folder=<folder>");
-            System.out.println("Available runners: coroutines, fibers, parallel, quasar, simple");
+            System.out.println("Usage: java -jar log-analyzer.jar --folder=<folder> [--runner=<runner>]");
+            System.out.println("Available runners: simple, fibers, parallel");
             return Optional.empty();
         }
         if (!input.containsKey(Flags.FOLDER)) {
