@@ -49,7 +49,7 @@ java -version || { echo "Failed to verify Java installation"; exit 1; }
 
 # Set project files permission
 chmod -R 755 . || { echo "Failed to update project files permission"; }
-stat -c "%A %a %n" *
+#stat -c "%A %a %n" *
 echo "Updated project files permission."
 
 # Compile with gradle wrapper if gradle is present
@@ -63,16 +63,20 @@ else
 fi
 
 # Generate log files
+echo "Creating data directory..."
+if [ ! -d "data" ]; then
+    echo "Failed to create data directory."
+    exit 1
+else
+    echo "Created data directory."
+fi
+
+rm -f data/*.txt
 echo "Generating log files..."
-[ ! -d "data" ] && mkdir -p "data"
-echo "Created data directory."
-echo "Generating log files..."
-java -cp build/libs/logs-statistics.jar app.LogGenerator
+java -cp build/libs/logs-statistics.jar app.LogGenerator 20 1000
+echo "Log files generated."
 
 echo "Project is ready to run."
-
-echo "Running the tests..."
-./gradlew test --warning-mode none || { echo "Tests failed"; exit 1; } else { echo "Ready to run!"; }
 
 java -jar build/libs/logs-statistics.jar --help
 
