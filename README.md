@@ -7,7 +7,7 @@ logs-statistics is a CLI sample program for aggregating log files.
 
 The project only needs Java 21 to build and run.
 
-The Linux bash script **prepare.sh** will download the open-jdk 21 into the project root, set JAVA_HOME environment variable, and run build tasks from the Gradle wrapper.
+The Linux bash script **prepare.sh** will download the open-jdk-21 runtime if not present, into the project root, set JAVA_HOME environment variable temporally, and run build tasks from the Gradle wrapper.
 
 From the project root run the following command:
 
