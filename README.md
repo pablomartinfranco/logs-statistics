@@ -85,7 +85,7 @@ See `build.gradle` for further commands.
 
 ## Why Java
 
-If this would have been some dev or sys-admin script, I would have probably chosen Python or Bash, but since it is a command line tool for log files aggregation, I chose Java as a study case for concurrency and as an opportunity to test the new built in Java virtual threads that looks promising.
+If this would have been some devops or sys-admin script, I would have probably chosen Python or Bash, but since it is a command line tool for log files aggregation, I chose Java as a study case for concurrency and as an opportunity to test the new built in Java virtual threads that looks promising.
 
 It may seem overkill to use Java for a simple task like this, but the performance and portability of the JVM, with the benefits of type safety, the garbage collector and static analysis, makes it a solid choice for quality grade software.
 
